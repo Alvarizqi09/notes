@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import {
   Card,
   Text,
@@ -18,8 +17,11 @@ import {
   AlertDescription,
   useToast,
 } from "@chakra-ui/react";
-import NoteModal from "./NoteModal";
-import { ConfirmationModal } from "./ConfirmationModal";
+import { useRouter } from "next/navigation";
+
+import Link from "next/link";
+import { ConfirmationModal } from "../ConfirmationModal";
+import NoteModal from "../NoteModal";
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
@@ -27,8 +29,8 @@ export default function Home() {
   const [noteToEdit, setNoteToEdit] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
-  const navigate = useNavigate();
   const toast = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     axios
@@ -38,10 +40,6 @@ export default function Home() {
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
-
-  const handleViewMore = (id) => {
-    navigate(`/notes/${id}`);
-  };
 
   const handleOpenModal = (note) => {
     setNoteToEdit(note);
@@ -112,9 +110,9 @@ export default function Home() {
         {notes.length === 0 ? (
           <Alert status="warning" mb="4">
             <AlertIcon />
-            <AlertTitle mr={2}>DATA KOSONG BROO</AlertTitle>
+            <AlertTitle mr={2}>No Notes Found</AlertTitle>
             <AlertDescription>
-              Isi dulu catatan agar data tidak kosong.
+              Please add a note to get started.
             </AlertDescription>
           </Alert>
         ) : (
@@ -134,9 +132,9 @@ export default function Home() {
                   </Text>
                 </CardBody>
                 <CardFooter className="mb-16">
-                  <Button onClick={() => handleViewMore(note.id)}>
-                    View here
-                  </Button>
+                  <Link href={`/notes/${note.id}`}>
+                    <Button>View Note</Button>
+                  </Link>
                   <Button ml="4" onClick={() => handleOpenModal(note)}>
                     Edit
                   </Button>
