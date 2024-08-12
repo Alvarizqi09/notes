@@ -17,7 +17,7 @@ import {
   AlertDescription,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation"; // Import from next/router
+import { useRouter } from "next/navigation";
 
 import { ConfirmationModal } from "../ConfirmationModal";
 import NoteModal from "../NoteModal";
@@ -29,7 +29,7 @@ export default function Home() {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
   const toast = useToast();
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   useEffect(() => {
     axios
@@ -95,8 +95,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col mx-5">
-      <div className="text-center w-full my-10">
+    <div className="flex flex-col mx-5 my-10">
+      <div className="text-center w-full mb-10">
         <Button
           colorScheme="pink"
           variant="solid"
@@ -120,7 +120,11 @@ export default function Home() {
             templateColumns="repeat(auto-fill, minmax(25rem, 1fr))"
           >
             {notes.map((note) => (
-              <Card key={note.id} className="w-96 h-auto">
+              <Card
+                key={note.id}
+                boxShadow="0 0 0 2px black"
+                className="w-96 h-auto"
+              >
                 <CardHeader>
                   <Heading size="md">{note.title}</Heading>
                 </CardHeader>
