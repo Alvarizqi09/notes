@@ -17,9 +17,8 @@ import {
   AlertDescription,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Import from next/router
 
-import Link from "next/link";
 import { ConfirmationModal } from "../ConfirmationModal";
 import NoteModal from "../NoteModal";
 
@@ -30,7 +29,7 @@ export default function Home() {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
   const toast = useToast();
-  const router = useRouter();
+  const router = useRouter(); // Initialize router
 
   useEffect(() => {
     axios
@@ -132,9 +131,11 @@ export default function Home() {
                   </Text>
                 </CardBody>
                 <CardFooter className="mb-16">
-                  <Link href={`/notes/${note.id}`}>
-                    <Button>View Note</Button>
-                  </Link>
+                  <Button
+                    onClick={() => router.push(`/notes/${note.id}`)} // Use router.push for navigation
+                  >
+                    View Note
+                  </Button>
                   <Button ml="4" onClick={() => handleOpenModal(note)}>
                     Edit
                   </Button>
