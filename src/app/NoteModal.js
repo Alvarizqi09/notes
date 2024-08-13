@@ -23,16 +23,14 @@ const NoteModal = ({ isOpen, onClose, noteToEdit, onSave }) => {
   const toast = useToast();
 
   useEffect(() => {
-    // When noteToEdit changes, update the state with its values
     if (noteToEdit) {
       setTitle(noteToEdit.title);
       setBody(noteToEdit.body);
     } else {
-      // Reset the fields if there's no note to edit
       setTitle("");
       setBody("");
     }
-  }, [noteToEdit]); // Run this effect whenever noteToEdit changes
+  }, [noteToEdit]);
 
   const handleSave = () => {
     const method = noteToEdit ? "put" : "post";
