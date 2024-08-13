@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -18,15 +18,27 @@ import {
 import axios from "axios";
 
 const NoteModal = ({ isOpen, onClose, noteToEdit, onSave }) => {
-  const [title, setTitle] = useState(noteToEdit ? noteToEdit.title : "");
-  const [body, setBody] = useState(noteToEdit ? noteToEdit.body : "");
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
   const toast = useToast();
+
+  useEffect(() => {
+    // When noteToEdit changes, update the state with its values
+    if (noteToEdit) {
+      setTitle(noteToEdit.title);
+      setBody(noteToEdit.body);
+    } else {
+      // Reset the fields if there's no note to edit
+      setTitle("");
+      setBody("");
+    }
+  }, [noteToEdit]); // Run this effect whenever noteToEdit changes
 
   const handleSave = () => {
     const method = noteToEdit ? "put" : "post";
     const url = noteToEdit
-      ? `https://66b8555e3ce57325ac76e432.mockapi.io/notes/notes/${noteToEdit.id}`
-      : `https://66b8555e3ce57325ac76e432.mockapi.io/notes/notes/`;
+      ? `https://studycase-production.up.railway.app/notes/${noteToEdit.id}`
+      : `https://studycase-production.up.railway.app/notes/`;
 
     const noteData = {
       title,

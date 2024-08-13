@@ -26,7 +26,7 @@ export default function NoteDetail() {
   useEffect(() => {
     if (id) {
       axios
-        .get(`https://66b8555e3ce57325ac76e432.mockapi.io/notes/notes/${id}`)
+        .get(`https://studycase-production.up.railway.app/notes/${id}`)
         .then((response) => {
           setNote(response.data);
           setLoading(false);

@@ -33,7 +33,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("https://66b8555e3ce57325ac76e432.mockapi.io/notes/notes")
+      .get("https://studycase-production.up.railway.app/notes")
       .then((response) => {
         setNotes(response.data);
       })
@@ -52,7 +52,7 @@ export default function Home() {
 
   const handleSave = () => {
     axios
-      .get("https://66b8555e3ce57325ac76e432.mockapi.io/notes/notes")
+      .get("https://studycase-production.up.railway.app/notes")
       .then((response) => {
         setNotes(response.data);
       })
@@ -71,7 +71,7 @@ export default function Home() {
 
   const handleDelete = (id) => {
     axios
-      .delete(`https://66b8555e3ce57325ac76e432.mockapi.io/notes/notes/${id}`)
+      .delete(`https://studycase-production.up.railway.app/notes/${id}`)
       .then(() => {
         setNotes(notes.filter((note) => note.id !== id));
         toast({
